@@ -22,7 +22,7 @@ public class UserDetailKeyGenerator {
     @Bean("DefaultGenerator")
     public KeyGenerator getDefaultGenerator() {
         System.out.println("getDefaultGenerator");
-        return (target, method, params) -> params.toString();
+        return (target, method, params) -> Arrays.asList(params).toString();
     }
 
     @Bean("UserKeyGenerator")

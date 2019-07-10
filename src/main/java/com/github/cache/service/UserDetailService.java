@@ -39,7 +39,7 @@ public class UserDetailService {
      * @param name 请求的用户名
      * @return UserDetailDO
      */
-    @Cacheable(keyGenerator = "DefaultGenerator", condition = "#name!='name10'", unless = "#name.length()>4")
+    @Cacheable(keyGenerator = "DefaultGenerator", condition = "#name !='name10'", unless = "#name.length() <= 4")
     public ReturnDO<UserDetailDO> findByName(String name) {
         log.info("UserDetailService|findByName|{}", name);
         UserDetailDO userDetailDO = repository.findUserCacheDOByNameIs(name);

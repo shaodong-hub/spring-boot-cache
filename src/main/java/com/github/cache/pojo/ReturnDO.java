@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * 创建时间为 19:46 2019-07-07
@@ -19,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class ReturnDO<T> {
+public class ReturnDO<T> implements Serializable {
 
     private T data;
 

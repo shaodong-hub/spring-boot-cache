@@ -2,7 +2,11 @@ package com.github.cache.pojo;
 
 
 import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -24,6 +28,10 @@ import java.io.Serializable;
 
 @Setter
 @Getter
+@Builder
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "UserDetailDO")
 public class UserDetailDO implements Serializable {
 
@@ -39,8 +47,6 @@ public class UserDetailDO implements Serializable {
     @Indexed
     @NotBlank
     private String phone;
-
-
 
     @Override
     public String toString() {

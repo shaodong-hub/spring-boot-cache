@@ -3,6 +3,7 @@ package com.github.cache.controller;
 import com.github.cache.pojo.ReturnDO;
 import com.github.cache.pojo.UserDetailDO;
 import com.github.cache.service.UserDetailService;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -62,7 +63,7 @@ public class UserDetailController {
      * @return Page
      */
     @GetMapping("/detail")
-    public Page<UserDetailDO> findAll(@PageableDefault(size = 4, page = 1, sort = "name,asc") Pageable pageable) {
+    public Page<UserDetailDO> findAll(@PageableDefault(size = 4, page = 0, sort = "name,asc") Pageable pageable) {
         return service.findAll(pageable);
     }
 
