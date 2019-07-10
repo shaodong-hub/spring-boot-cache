@@ -25,10 +25,4 @@ public class UserCacheKeyGenerator {
         return (target, method, params) -> params;
     }
 
-    @Bean("UserKeyGenerator")
-    public KeyGenerator getKeyGenerator() {
-        System.out.println("getKeyGenerator");
-        return (target, method, params) -> method.getName() + ":" + Arrays.asList(params).toString();
-    }
-
 }

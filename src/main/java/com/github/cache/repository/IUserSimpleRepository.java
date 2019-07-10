@@ -17,6 +17,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface IUserSimpleRepository extends PagingAndSortingRepository<UserSimpleDO, String> {
 
 
+    /**
+     * 通过用户名删除用户
+     *
+     * @param name 用户名
+     */
     void deleteUserSimpleDOByNameEquals(String name);
 
 
