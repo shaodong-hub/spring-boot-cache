@@ -17,12 +17,12 @@ import java.util.Arrays;
  * @since 0.0.1
  */
 @Configuration
-public class UserCacheKeyGenerator {
+public class UserDetailKeyGenerator {
 
     @Bean("DefaultGenerator")
     public KeyGenerator getDefaultGenerator() {
         System.out.println("getDefaultGenerator");
-        return (target, method, params) -> params;
+        return (target, method, params) -> params.toString();
     }
 
     @Bean("UserKeyGenerator")

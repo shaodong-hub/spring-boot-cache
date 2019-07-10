@@ -1,8 +1,6 @@
 package com.github.cache.repository;
 
-import com.github.cache.pojo.UserCacheDO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.github.cache.pojo.UserDetailDO;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -16,19 +14,19 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @since 0.0.1
  */
 
-public interface IUserCacheRepository extends PagingAndSortingRepository<UserCacheDO, String> {
+public interface IUserDetailRepository extends PagingAndSortingRepository<UserDetailDO, String> {
 
 
     /**
      * 根据用户名查询单个用户
      *
      * @param name 用户名
-     * @return UserCacheDO
+     * @return UserDetailDO
      */
-    UserCacheDO findUserCacheDOByNameIs(String name);
+    UserDetailDO findUserCacheDOByNameIs(String name);
 
 
-    UserCacheDO findUserCacheDOByPhoneEquals(String phone);
+    UserDetailDO findUserCacheDOByPhoneEquals(String phone);
 
 
     /**
