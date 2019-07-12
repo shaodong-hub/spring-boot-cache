@@ -42,7 +42,7 @@ public class UserDetailService {
     @Cacheable(keyGenerator = "DefaultGenerator", condition = "#name !='name10'", unless = "#name.length() <= 4")
     public ReturnDO<UserDetailDO> findByName(String name) {
         log.info("UserDetailService|findByName|{}", name);
-        UserDetailDO userDetailDO = repository.findUserCacheDOByNameIs(name);
+        UserDetailDO userDetailDO = repository.findUserCacheDOByNameEquals(name);
         return ReturnDO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
