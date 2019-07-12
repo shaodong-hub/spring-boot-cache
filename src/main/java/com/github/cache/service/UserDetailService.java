@@ -9,8 +9,6 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -53,15 +51,7 @@ public class UserDetailService {
         return ReturnDO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
-    /**
-     * @param pageable 分页信息
-     * @return Page
-     */
-    @Cacheable(keyGenerator = "DefaultGenerator")
-    public Page<UserDetailDO> findAll(Pageable pageable) {
-        log.info("UserDetailService|findByPhone|{}", pageable.toString());
-        return repository.findAll(pageable);
-    }
+
 
     /**
      * -@CachePut:既调用方法,又更新缓存: 修改了数据库的某个数据, 同步更新缓存

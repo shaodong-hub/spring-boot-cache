@@ -3,10 +3,6 @@ package com.github.cache.controller;
 import com.github.cache.pojo.ReturnDO;
 import com.github.cache.pojo.UserDetailDO;
 import com.github.cache.service.UserDetailService;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,16 +52,6 @@ public class UserDetailController {
         return service.findByPhone(phone);
     }
 
-    /**
-     * 查询所有的用户
-     *
-     * @param pageable 分页信息
-     * @return Page
-     */
-    @GetMapping("/detail")
-    public Page<UserDetailDO> findAll(@PageableDefault(size = 4, page = 0, sort = "name,asc") Pageable pageable) {
-        return service.findAll(pageable);
-    }
 
     /**
      * 新增用户
