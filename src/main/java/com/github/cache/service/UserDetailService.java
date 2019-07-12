@@ -97,7 +97,7 @@ public class UserDetailService {
      *
      * @param name name
      */
-    @CacheEvict
+    @CacheEvict(key = "#a0")
     public ResponseEntity<Void> delete(String name) {
         repository.deleteUserCacheDOByNameIs(name);
         return new ResponseEntity<>(HttpStatus.OK);
