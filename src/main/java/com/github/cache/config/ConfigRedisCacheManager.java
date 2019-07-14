@@ -1,7 +1,6 @@
 package com.github.cache.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCacheManager;
 
 /**
  * <p>

@@ -1,10 +1,7 @@
 package com.github.cache.runner;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * <p>
