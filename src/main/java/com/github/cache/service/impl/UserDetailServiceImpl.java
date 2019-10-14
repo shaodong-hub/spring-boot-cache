@@ -67,11 +67,11 @@ public class UserDetailServiceImpl implements IUserDetailService {
 
     @Caching(
             cacheable = {
-                    @Cacheable(key = "#a0.name"),
+                    @Cacheable(key = "'[' + #a0.name + ']'"),
             },
             put = {
-                    @CachePut(key = "#result.data.name"),
-                    @CachePut(key = "#result.data.phone")
+                    @CachePut(key = "'[' + #result.data.name + ']'"),
+                    @CachePut(key = "'[' + #result.data.phone + ']'")
             }
     )
     @Override
@@ -81,7 +81,7 @@ public class UserDetailServiceImpl implements IUserDetailService {
         return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
-    @CachePut(key = "#result.data.name")
+    @CachePut(key = "'[' + #result.data.name + ']'")
     @Override
     public ReturnDTO<UserDetailDO> update(@NotNull UserDetailDO userCacheDTO) {
         log.info("UserDetailService|update|{}", userCacheDTO.toString());
@@ -89,7 +89,7 @@ public class UserDetailServiceImpl implements IUserDetailService {
         return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
-    @CacheEvict(key = "#a0")
+    @CacheEvict(key = "'[' + #a0 + ']'")
     @Transactional(rollbackFor = Exception.class)
     @Override
     public ResponseEntity<Void> delete(String name) {
