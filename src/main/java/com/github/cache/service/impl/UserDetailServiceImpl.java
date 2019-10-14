@@ -1,9 +1,11 @@
-package com.github.cache.service;
+package com.github.cache.service.impl;
 
-import com.github.cache.pojo.ReturnDO;
+import com.github.cache.pojo.ReturnDTO;
 import com.github.cache.pojo.UserDetailDO;
 import com.github.cache.repository.IUserDetailRepository;
+import com.github.cache.service.IUserDetailService;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -30,82 +33,77 @@ import javax.annotation.Resource;
 @Slf4j
 @Service
 @CacheConfig(cacheNames = "redis_cache")
-public class UserDetailService {
+public class UserDetailServiceImpl implements IUserDetailService {
 
     @Resource
     private IUserDetailRepository repository;
 
-    /**
-     * @param name 请求的用户名
-     * @return UserDetailDO
-     */
-    @Cacheable(keyGenerator = "DefaultGenerator", condition = "#name !='name10'", unless = "#name.length() <= 4")
-    public ReturnDO<UserDetailDO> findByName(String name) {
+    @Cacheable(
+            keyGenerator = "DefaultGenerator",
+            condition = "#name !='name10'",
+            unless = "#name.length() <= 4"
+    )
+    @Override
+    public ReturnDTO<UserDetailDO> findByName(String name) {
         log.info("UserDetailService|findByName|{}", name);
-        UserDetailDO userDetailDO = repository.findUserCacheDOByNameEquals(name);
-        return ReturnDO.<UserDetailDO>builder().data(userDetailDO).build();
+        UserDetailDO userDetailDO = repository.findByNameEquals(name);
+        return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
     @Cacheable(keyGenerator = "DefaultGenerator")
-    public ReturnDO<UserDetailDO> findByPhone(String phone) {
+    @Override
+    public ReturnDTO<UserDetailDO> findByPhone(String phone) {
         log.info("UserDetailService|findByPhone|{}", phone);
         UserDetailDO userDetailDO = repository.findUserCacheDOByPhoneEquals(phone);
-        return ReturnDO.<UserDetailDO>builder().data(userDetailDO).build();
+        return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
-    /**
-     * @param pageable 分页信息
-     * @return Page
-     */
     @Cacheable(keyGenerator = "DefaultGenerator")
-    public Page<UserDetailDO> findAll(Pageable pageable) {
+    @Override
+    public Page<UserDetailDO> findAll(@NotNull Pageable pageable) {
         log.info("UserDetailService|findByPhone|{}", pageable.toString());
         return repository.findAll(pageable);
     }
 
-    /**
-     * -@CachePut:既调用方法,又更新缓存: 修改了数据库的某个数据, 同步更新缓存
-     * 运行时机:
-     * 1.先调用目标方法;
-     * 2.将目标方法的结果缓存起来;
-     *
-     * @param userCacheDTO UserDetailDO
-     * @return UserDetailDO
-     */
     @Caching(
             cacheable = {
-                    @Cacheable(key = "#a0.name")
+                    @Cacheable(key = "#a0.name"),
             },
             put = {
                     @CachePut(key = "#result.data.name"),
                     @CachePut(key = "#result.data.phone")
             }
     )
-    public ReturnDO<UserDetailDO> create(UserDetailDO userCacheDTO) {
+    @Override
+    public ReturnDTO<UserDetailDO> create(@NotNull UserDetailDO userCacheDTO) {
+        log.info("UserDetailService|create|{}", userCacheDTO.toString());
         UserDetailDO userDetailDO = repository.save(userCacheDTO);
-        return ReturnDO.<UserDetailDO>builder().data(userDetailDO).build();
+        return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
     @CachePut(key = "#result.data.name")
-    public ReturnDO<UserDetailDO> update(UserDetailDO userCacheDTO) {
+    @Override
+    public ReturnDTO<UserDetailDO> update(@NotNull UserDetailDO userCacheDTO) {
+        log.info("UserDetailService|update|{}", userCacheDTO.toString());
         UserDetailDO userDetailDO = repository.save(userCacheDTO);
-        return ReturnDO.<UserDetailDO>builder().data(userDetailDO).build();
+        return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
-    /**
-     * -@CacheEvict
-     *
-     * @param name name
-     */
     @CacheEvict(key = "#a0")
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public ResponseEntity<Void> delete(String name) {
+        log.info("UserDetailService|delete|{}", name);
         repository.deleteUserCacheDOByNameIs(name);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @CacheEvict(allEntries = true)
+    @Override
     public ResponseEntity<Void> deleteAll() {
+        log.info("UserDetailService|deleteAll");
         repository.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

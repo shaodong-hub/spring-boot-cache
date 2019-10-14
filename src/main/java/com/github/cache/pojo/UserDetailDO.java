@@ -1,19 +1,28 @@
 package com.github.cache.pojo;
 
 
-import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.ToString;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -26,31 +35,45 @@ import java.io.Serializable;
  * @since 0.0.1
  */
 
-@Setter
-@Getter
+@Data
+@Entity
 @Builder
-@EqualsAndHashCode
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "UserDetailDO")
+@Table(
+        name = "user_detail",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})},
+        indexes = {
+                @Index(name = "index_phone", columnList = "phone"),
+                @Index(name = "index_age", columnList = "age")
+        }
+
+)
+@EntityListeners(AuditingEntityListener.class)
 public class UserDetailDO implements Serializable {
 
     private static final long serialVersionUID = -8116446033357952120L;
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @NotBlank
-    @Indexed(unique = true)
+    @Column(name = "username", nullable = false)
     private String name;
 
-    @Indexed
     @NotBlank
+    @Column(nullable = false)
     private String phone;
 
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
+    @Range(min = 0, max = 125)
+    private Integer age;
+
+    @CreatedDate
+    private Date createDate;
+
+    @LastModifiedDate
+    private Date lastModifiedDate;
 
 }

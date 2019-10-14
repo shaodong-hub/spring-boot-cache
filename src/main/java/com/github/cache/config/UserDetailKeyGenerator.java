@@ -1,5 +1,6 @@
 package com.github.cache.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,18 +17,29 @@ import java.util.Arrays;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Slf4j
 @Configuration
 public class UserDetailKeyGenerator {
 
+    /**
+     * 创建默认
+     *
+     * @return KeyGenerator
+     */
     @Bean("DefaultGenerator")
-    public KeyGenerator getDefaultGenerator() {
-        System.out.println("getDefaultGenerator");
+    public KeyGenerator defaultGenerator() {
+        log.info("创建 DefaultGenerator!");
         return (target, method, params) -> Arrays.asList(params).toString();
     }
 
+    /**
+     * UserKeyGenerator
+     *
+     * @return KeyGenerator
+     */
     @Bean("UserKeyGenerator")
-    public KeyGenerator getKeyGenerator() {
-        System.out.println("getKeyGenerator");
+    public KeyGenerator keyGenerator() {
+        log.info("创建 UserKeyGenerator!");
         return (target, method, params) -> method.getName() + ":" + Arrays.asList(params).toString();
     }
 

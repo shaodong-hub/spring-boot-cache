@@ -23,8 +23,7 @@ public interface IUserDetailRepository extends PagingAndSortingRepository<UserDe
      * @param name 用户名
      * @return UserDetailDO
      */
-    UserDetailDO findUserCacheDOByNameEquals(String name);
-
+    UserDetailDO findByNameEquals(String name);
 
     /**
      * 根据手机号码查询单个用户

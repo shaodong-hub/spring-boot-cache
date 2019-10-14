@@ -1,9 +1,12 @@
 package com.github.cache.pojo;
 
 import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -21,13 +24,11 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-public class ReturnDO<T> implements Serializable {
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReturnDTO<T> implements Serializable {
 
     private T data;
-
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
 
 }

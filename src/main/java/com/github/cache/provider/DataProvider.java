@@ -29,12 +29,21 @@ public class DataProvider {
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
+    private static final Integer NUM = 12;
+
+    /**
+     * 初始化数据
+     */
     @PostConstruct
     public void init() {
         redisTemplate.delete(redisTemplate.keys("*"));
         repository.deleteAll();
-        for (int i = 0; i < 12; i++) {
-            UserDetailDO userDetailDO = UserDetailDO.builder().name("name" + i).phone(1000 + i + "").build();
+        for (int i = 0; i < NUM; i++) {
+            UserDetailDO userDetailDO = UserDetailDO.builder()
+                    .name("name" + i)
+                    .phone(1000 + i + "")
+                    .age(i)
+                    .build();
             repository.save(userDetailDO);
         }
     }
