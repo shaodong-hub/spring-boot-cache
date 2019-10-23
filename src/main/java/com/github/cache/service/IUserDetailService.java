@@ -1,6 +1,5 @@
 package com.github.cache.service;
 
-import com.github.cache.pojo.ReturnDTO;
 import com.github.cache.pojo.UserDetailDO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
