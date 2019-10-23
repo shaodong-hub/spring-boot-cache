@@ -29,6 +29,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ReturnDTO<T> implements Serializable {
 
+    private static final long serialVersionUID = -1876645671601863918L;
+
     private T data;
 
 }

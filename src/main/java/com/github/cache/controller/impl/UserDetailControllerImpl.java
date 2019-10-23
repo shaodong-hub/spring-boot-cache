@@ -3,7 +3,7 @@ package com.github.cache.controller.impl;
 import com.github.cache.controller.IUserDetailController;
 import com.github.cache.pojo.ReturnDTO;
 import com.github.cache.pojo.UserDetailDO;
-import com.github.cache.service.impl.UserDetailServiceImpl;
+import com.github.cache.service.IUserDetailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -33,46 +33,46 @@ import javax.annotation.Resource;
 public class UserDetailControllerImpl implements IUserDetailController {
 
     @Resource
-    private UserDetailServiceImpl service;
+    private IUserDetailService service;
 
-    @GetMapping("/detail/name/{name}")
     @Override
+    @GetMapping("/detail/name/{name}")
     public ReturnDTO<UserDetailDO> findByName(@PathVariable String name) {
         return service.findByName(name);
     }
 
-    @GetMapping("/detail/phone/{phone}")
     @Override
+    @GetMapping("/detail/phone/{phone}")
     public ReturnDTO<UserDetailDO> findByPhone(@PathVariable String phone) {
         return service.findByPhone(phone);
     }
 
-    @GetMapping("/detail")
     @Override
+    @GetMapping("/detail")
     public Page<UserDetailDO> findAll(@PageableDefault(size = 4, page = 0, sort = "name", direction = Sort.Direction.DESC) Pageable pageable) {
         return service.findAll(pageable);
     }
 
-    @PostMapping("/detail")
     @Override
+    @PostMapping("/detail")
     public ReturnDTO<UserDetailDO> create(@RequestBody UserDetailDO userDetailDO) {
         return service.create(userDetailDO);
     }
 
-    @PutMapping("/detail")
     @Override
+    @PutMapping("/detail")
     public ReturnDTO<UserDetailDO> update(@RequestBody UserDetailDO userDetailDO) {
         return service.update(userDetailDO);
     }
 
-    @DeleteMapping("/detail/{name}")
     @Override
+    @DeleteMapping("/detail/{name}")
     public ResponseEntity<Void> delete(@PathVariable String name) {
         return service.delete(name);
     }
 
-    @DeleteMapping("/detail")
     @Override
+    @DeleteMapping("/detail")
     public ResponseEntity<Void> deleteAll() {
         return service.deleteAll();
     }

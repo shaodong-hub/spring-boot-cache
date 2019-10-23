@@ -41,7 +41,8 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Cacheable(
             keyGenerator = "DefaultGenerator",
             condition = "#name !='name10'",
-            unless = "#name.length() <= 4"
+            unless = "#name.length() <= 4",
+            cacheManager = "JsonCacheManager"
     )
     @Override
     public ReturnDTO<UserDetailDO> findByName(String name) {
@@ -50,8 +51,8 @@ public class UserDetailServiceImpl implements IUserDetailService {
         return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
-    @Cacheable(keyGenerator = "DefaultGenerator")
     @Override
+    @Cacheable(keyGenerator = "DefaultGenerator")
     public ReturnDTO<UserDetailDO> findByPhone(String phone) {
         log.info("UserDetailService|findByPhone|{}", phone);
         UserDetailDO userDetailDO = repository.findUserCacheDOByPhoneEquals(phone);
@@ -81,25 +82,25 @@ public class UserDetailServiceImpl implements IUserDetailService {
         return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
-    @CachePut(key = "'[' + #result.data.name + ']'")
     @Override
+    @CachePut(key = "'[' + #result.data.name + ']'")
     public ReturnDTO<UserDetailDO> update(@NotNull UserDetailDO userCacheDTO) {
         log.info("UserDetailService|update|{}", userCacheDTO.toString());
         UserDetailDO userDetailDO = repository.save(userCacheDTO);
         return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
 
+    @Override
     @CacheEvict(key = "'[' + #a0 + ']'")
     @Transactional(rollbackFor = Exception.class)
-    @Override
     public ResponseEntity<Void> delete(String name) {
         log.info("UserDetailService|delete|{}", name);
         repository.deleteUserCacheDOByNameIs(name);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @CacheEvict(allEntries = true)
     @Override
+    @CacheEvict(allEntries = true)
     public ResponseEntity<Void> deleteAll() {
         log.info("UserDetailService|deleteAll");
         repository.deleteAll();
