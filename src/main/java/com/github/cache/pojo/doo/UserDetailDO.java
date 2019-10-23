@@ -1,4 +1,4 @@
-package com.github.cache.pojo;
+package com.github.cache.pojo.doo;
 
 
 import lombok.AllArgsConstructor;
@@ -45,8 +45,8 @@ import java.util.Date;
         name = "user_detail",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})},
         indexes = {
-                @Index(name = "index_phone", columnList = "phone"),
-                @Index(name = "index_age", columnList = "age")
+                @Index(name = "IDX_PHONE", columnList = "phone"),
+                @Index(name = "IDX_AGE", columnList = "age")
         }
 )
 @EntityListeners(AuditingEntityListener.class)

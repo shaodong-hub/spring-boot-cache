@@ -1,6 +1,6 @@
 package com.github.cache.service.impl;
 
-import com.github.cache.pojo.UserDetailDO;
+import com.github.cache.pojo.doo.UserDetailDO;
 import com.github.cache.repository.IUserDetailRepository;
 import com.github.cache.service.IUserDetailService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +37,12 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Resource
     private IUserDetailRepository repository;
 
+    /**
+     * 指定了 cacheManager = "JsonCacheManager", 所以会用在 Redis 中生成 JSON 格式的字符串
+     *
+     * @param name 请求的用户名
+     * @return UserDetailDO
+     */
     @Cacheable(
             keyGenerator = "DefaultGenerator",
             condition = "#name !='name10'",
@@ -47,7 +53,6 @@ public class UserDetailServiceImpl implements IUserDetailService {
     public UserDetailDO findByName(String name) {
         log.info("---------- UserDetailService|findByName|{}", name);
         return repository.findByNameEquals(name);
-
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.github.cache.adata;
 
-import com.github.cache.pojo.UserDetailDO;
+import com.github.cache.pojo.doo.UserDetailDO;
 import com.github.cache.repository.IUserDetailRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

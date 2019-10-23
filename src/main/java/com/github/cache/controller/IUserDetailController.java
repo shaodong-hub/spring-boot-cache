@@ -1,7 +1,7 @@
 package com.github.cache.controller;
 
-import com.github.cache.pojo.ReturnDTO;
-import com.github.cache.pojo.UserDetailDO;
+import com.github.cache.pojo.dto.ReturnDTO;
+import com.github.cache.pojo.doo.UserDetailDO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -43,7 +43,8 @@ public interface IUserDetailController {
      * @param pageable 分页信息
      * @return Page
      */
-    Page<UserDetailDO> findAll(@PageableDefault(size = 4, page = 0, sort = "name,asc") Pageable pageable);
+    Page<UserDetailDO> findAll(@PageableDefault(size = 4, page = 0, sort = "name,asc")
+                                       Pageable pageable);
 
     /**
      * 新增用户

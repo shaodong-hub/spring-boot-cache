@@ -13,7 +13,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.annotation.Resource;
 
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -42,14 +44,22 @@ public class UserDetailControllerImplTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/detail/name/name1"))
                 .andDo(print())
                 .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.status").value(0))
+                .andExpect(jsonPath("$.status").value(0))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
     }
 
     @Test
+    @SneakyThrows(Exception.class)
     public void findByPhone() {
+        mockMvc.perform(MockMvcRequestBuilders.get("/detail/phone/1000"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(0))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
     }
 
     @Test

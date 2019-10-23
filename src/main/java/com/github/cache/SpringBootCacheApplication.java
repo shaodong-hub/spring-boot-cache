@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
 /**
+ * 开启缓存注解
+ *
  * @author 石少东
  */
 

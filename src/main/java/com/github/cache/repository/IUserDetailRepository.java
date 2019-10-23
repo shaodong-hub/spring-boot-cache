@@ -1,6 +1,6 @@
 package com.github.cache.repository;
 
-import com.github.cache.pojo.UserDetailDO;
+import com.github.cache.pojo.doo.UserDetailDO;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**

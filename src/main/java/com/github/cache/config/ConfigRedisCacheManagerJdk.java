@@ -35,6 +35,17 @@ import java.util.List;
 public class ConfigRedisCacheManagerJdk {
 
 
+    /**
+     * 生成默认的 RedisCacheManager
+     *
+     * @param cacheProperties                     cacheProperties
+     * @param cacheManagerCustomizers             cacheManagerCustomizers
+     * @param redisCacheConfiguration             redisCacheConfiguration
+     * @param redisCacheManagerBuilderCustomizers redisCacheManagerBuilderCustomizers
+     * @param redisConnectionFactory              redisConnectionFactory
+     * @param resourceLoader                      resourceLoader
+     * @return RedisCacheManager
+     */
     @Bean
     @Primary
     public RedisCacheManager cacheManager(CacheProperties cacheProperties, CacheManagerCustomizers cacheManagerCustomizers,

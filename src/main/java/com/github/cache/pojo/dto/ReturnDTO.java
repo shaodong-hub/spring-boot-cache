@@ -1,4 +1,4 @@
-package com.github.cache.pojo;
+package com.github.cache.pojo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +29,8 @@ import java.io.Serializable;
 public class ReturnDTO<T> implements Serializable {
 
     private static final long serialVersionUID = -1876645671601863918L;
+
+    private Integer status;
 
     private T data;
 

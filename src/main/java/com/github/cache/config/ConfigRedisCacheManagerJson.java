@@ -1,7 +1,7 @@
 package com.github.cache.config;
 
 
-import com.github.cache.pojo.UserDetailDO;
+import com.github.cache.pojo.doo.UserDetailDO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
@@ -33,7 +33,16 @@ import java.util.List;
 @Configuration
 public class ConfigRedisCacheManagerJson {
 
-
+    /**
+     * 生成自定义的 RedisCacheManager
+     *
+     * @param cacheProperties                     cacheProperties
+     * @param cacheManagerCustomizers             cacheManagerCustomizers
+     * @param redisCacheConfiguration             redisCacheConfiguration
+     * @param redisCacheManagerBuilderCustomizers redisCacheManagerBuilderCustomizers
+     * @param redisConnectionFactory              redisConnectionFactory
+     * @return RedisCacheManager
+     */
     @Bean("JsonCacheManager")
     public RedisCacheManager cacheManager(CacheProperties cacheProperties, CacheManagerCustomizers cacheManagerCustomizers,
                                           ObjectProvider<RedisCacheConfiguration> redisCacheConfiguration,

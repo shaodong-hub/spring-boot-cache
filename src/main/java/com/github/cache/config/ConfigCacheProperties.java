@@ -23,11 +23,22 @@ import java.util.stream.Collectors;
 @Configuration
 public class ConfigCacheProperties {
 
+    /**
+     * 必须要
+     *
+     * @return CacheProperties
+     */
     @Bean
     public CacheProperties cacheProperties() {
         return new CacheProperties();
     }
 
+    /**
+     * 必须要
+     *
+     * @param customizers ObjectProvider
+     * @return CacheManagerCustomizers
+     */
     @Bean
     public CacheManagerCustomizers cacheManagerCustomizers(@NotNull ObjectProvider<CacheManagerCustomizer<?>> customizers) {
         return new CacheManagerCustomizers(customizers.orderedStream().collect(Collectors.toList()));

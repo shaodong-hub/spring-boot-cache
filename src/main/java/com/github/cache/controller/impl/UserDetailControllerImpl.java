@@ -1,8 +1,8 @@
 package com.github.cache.controller.impl;
 
 import com.github.cache.controller.IUserDetailController;
-import com.github.cache.pojo.ReturnDTO;
-import com.github.cache.pojo.UserDetailDO;
+import com.github.cache.pojo.dto.ReturnDTO;
+import com.github.cache.pojo.doo.UserDetailDO;
 import com.github.cache.service.IUserDetailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,31 +38,32 @@ public class UserDetailControllerImpl implements IUserDetailController {
     @Override
     @GetMapping("/detail/name/{name}")
     public ReturnDTO<UserDetailDO> findByName(@PathVariable String name) {
-        return ReturnDTO.<UserDetailDO>builder().data(service.findByName(name)).build();
+        return ReturnDTO.<UserDetailDO>builder().status(0).data(service.findByName(name)).build();
     }
 
     @Override
     @GetMapping("/detail/phone/{phone}")
     public ReturnDTO<UserDetailDO> findByPhone(@PathVariable String phone) {
-        return ReturnDTO.<UserDetailDO>builder().data(service.findByPhone(phone)).build();
+        return ReturnDTO.<UserDetailDO>builder().status(0).data(service.findByPhone(phone)).build();
     }
 
     @Override
     @GetMapping("/detail")
-    public Page<UserDetailDO> findAll(@PageableDefault(size = 4, page = 0, sort = "name", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<UserDetailDO> findAll(@PageableDefault(size = 4, page = 0, sort = "name", direction = Sort.Direction.DESC)
+                                              Pageable pageable) {
         return service.findAll(pageable);
     }
 
     @Override
     @PostMapping("/detail")
     public ReturnDTO<UserDetailDO> create(@RequestBody UserDetailDO userDetailDO) {
-        return ReturnDTO.<UserDetailDO>builder().data(service.create(userDetailDO)).build();
+        return ReturnDTO.<UserDetailDO>builder().status(0).data(service.create(userDetailDO)).build();
     }
 
     @Override
     @PutMapping("/detail")
     public ReturnDTO<UserDetailDO> update(@RequestBody UserDetailDO userDetailDO) {
-        return ReturnDTO.<UserDetailDO>builder().data(service.update(userDetailDO)).build();
+        return ReturnDTO.<UserDetailDO>builder().status(0).data(service.update(userDetailDO)).build();
     }
 
     @Override
