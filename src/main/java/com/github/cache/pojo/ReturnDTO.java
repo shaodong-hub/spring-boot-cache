@@ -1,6 +1,5 @@
 package com.github.cache.pojo;
 
-import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

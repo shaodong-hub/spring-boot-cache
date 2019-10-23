@@ -1,6 +1,7 @@
 package com.github.cache.config;
 
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
@@ -39,7 +40,7 @@ public class ConfigRedisCacheManagerJdk {
     public RedisCacheManager cacheManager(CacheProperties cacheProperties, CacheManagerCustomizers cacheManagerCustomizers,
                                           ObjectProvider<RedisCacheConfiguration> redisCacheConfiguration,
                                           ObjectProvider<RedisCacheManagerBuilderCustomizer> redisCacheManagerBuilderCustomizers,
-                                          RedisConnectionFactory redisConnectionFactory, ResourceLoader resourceLoader) {
+                                          RedisConnectionFactory redisConnectionFactory, @NotNull ResourceLoader resourceLoader) {
         RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager.builder(redisConnectionFactory).cacheDefaults(
                 determineConfiguration(cacheProperties, redisCacheConfiguration, resourceLoader.getClassLoader()));
         List<String> cacheNames = cacheProperties.getCacheNames();
@@ -51,13 +52,13 @@ public class ConfigRedisCacheManagerJdk {
     }
 
     private RedisCacheConfiguration determineConfiguration(CacheProperties cacheProperties,
-                                                           ObjectProvider<RedisCacheConfiguration> redisCacheConfiguration,
+                                                           @NotNull ObjectProvider<RedisCacheConfiguration> redisCacheConfiguration,
                                                            ClassLoader classLoader) {
         return redisCacheConfiguration.getIfAvailable(() -> createConfiguration(cacheProperties, classLoader));
     }
 
     private org.springframework.data.redis.cache.RedisCacheConfiguration createConfiguration(
-            CacheProperties cacheProperties, ClassLoader classLoader) {
+            @NotNull CacheProperties cacheProperties, ClassLoader classLoader) {
         Redis redisProperties = cacheProperties.getRedis();
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         config = config.serializeValuesWith(SerializationPair.fromSerializer(new JdkSerializationRedisSerializer(classLoader)));

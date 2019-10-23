@@ -20,14 +20,24 @@ import org.springframework.http.ResponseEntity;
 public interface IUserDetailService {
 
     /**
+     * 根据用户名查询用户
+     *
      * @param name 请求的用户名
      * @return UserDetailDO
      */
     ReturnDTO<UserDetailDO> findByName(String name);
 
+    /**
+     * 根据手机号码查询用户
+     *
+     * @param phone 用户手机号码
+     * @return UserDetailDO
+     */
     ReturnDTO<UserDetailDO> findByPhone(String phone);
 
     /**
+     * 获取所有的用户信息
+     *
      * @param pageable 分页信息
      * @return Page
      */
@@ -44,6 +54,12 @@ public interface IUserDetailService {
      */
     ReturnDTO<UserDetailDO> create(UserDetailDO userCacheDTO);
 
+    /**
+     * 更新用户信息
+     *
+     * @param userCacheDTO 用户信息
+     * @return UserDetailDO
+     */
     ReturnDTO<UserDetailDO> update(UserDetailDO userCacheDTO);
 
     /**
@@ -53,6 +69,11 @@ public interface IUserDetailService {
      */
     ResponseEntity<Void> delete(String name);
 
+    /**
+     * 删除所有的数据
+     *
+     * @return void
+     */
     ResponseEntity<Void> deleteAll();
 
 }

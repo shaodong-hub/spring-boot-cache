@@ -1,5 +1,6 @@
 package com.github.cache.config;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
@@ -28,7 +29,7 @@ public class ConfigCacheProperties {
     }
 
     @Bean
-    public CacheManagerCustomizers cacheManagerCustomizers(ObjectProvider<CacheManagerCustomizer<?>> customizers) {
+    public CacheManagerCustomizers cacheManagerCustomizers(@NotNull ObjectProvider<CacheManagerCustomizer<?>> customizers) {
         return new CacheManagerCustomizers(customizers.orderedStream().collect(Collectors.toList()));
     }
 

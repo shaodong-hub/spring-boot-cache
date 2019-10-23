@@ -1,4 +1,4 @@
-package com.github.cache.provider;
+package com.github.cache.adata;
 
 import com.github.cache.pojo.UserDetailDO;
 import com.github.cache.repository.IUserDetailRepository;

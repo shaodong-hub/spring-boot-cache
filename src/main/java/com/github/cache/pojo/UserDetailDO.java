@@ -48,7 +48,6 @@ import java.util.Date;
                 @Index(name = "index_phone", columnList = "phone"),
                 @Index(name = "index_age", columnList = "age")
         }
-
 )
 @EntityListeners(AuditingEntityListener.class)
 public class UserDetailDO implements Serializable {

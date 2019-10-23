@@ -2,6 +2,7 @@ package com.github.cache.config;
 
 
 import com.github.cache.pojo.UserDetailDO;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
@@ -9,7 +10,6 @@ import org.springframework.boot.autoconfigure.cache.CacheProperties.Redis;
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -38,9 +38,9 @@ public class ConfigRedisCacheManagerJson {
     public RedisCacheManager cacheManager(CacheProperties cacheProperties, CacheManagerCustomizers cacheManagerCustomizers,
                                           ObjectProvider<RedisCacheConfiguration> redisCacheConfiguration,
                                           ObjectProvider<RedisCacheManagerBuilderCustomizer> redisCacheManagerBuilderCustomizers,
-                                          RedisConnectionFactory redisConnectionFactory, ResourceLoader resourceLoader) {
+                                          RedisConnectionFactory redisConnectionFactory) {
         RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager.builder(redisConnectionFactory).cacheDefaults(
-                determineConfiguration(cacheProperties, redisCacheConfiguration, resourceLoader.getClassLoader()));
+                determineConfiguration(cacheProperties, redisCacheConfiguration));
         List<String> cacheNames = cacheProperties.getCacheNames();
         if (!cacheNames.isEmpty()) {
             builder.initialCacheNames(new LinkedHashSet<>(cacheNames));
@@ -50,13 +50,11 @@ public class ConfigRedisCacheManagerJson {
     }
 
     private RedisCacheConfiguration determineConfiguration(CacheProperties cacheProperties,
-                                                           ObjectProvider<RedisCacheConfiguration> redisCacheConfiguration,
-                                                           ClassLoader classLoader) {
-        return redisCacheConfiguration.getIfAvailable(() -> createConfiguration(cacheProperties, classLoader));
+                                                           @NotNull ObjectProvider<RedisCacheConfiguration> redisCacheConfiguration) {
+        return redisCacheConfiguration.getIfAvailable(() -> createConfiguration(cacheProperties));
     }
 
-    private RedisCacheConfiguration createConfiguration(
-            CacheProperties cacheProperties, ClassLoader classLoader) {
+    private RedisCacheConfiguration createConfiguration(@NotNull CacheProperties cacheProperties) {
         Redis redisProperties = cacheProperties.getRedis();
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         config = config.serializeValuesWith(SerializationPair.fromSerializer(new Jackson2JsonRedisSerializer<>(UserDetailDO.class)));

@@ -46,7 +46,7 @@ public class UserDetailServiceImpl implements IUserDetailService {
     )
     @Override
     public ReturnDTO<UserDetailDO> findByName(String name) {
-        log.info("UserDetailService|findByName|{}", name);
+        log.info("---------- UserDetailService|findByName|{}", name);
         UserDetailDO userDetailDO = repository.findByNameEquals(name);
         return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
@@ -54,7 +54,7 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Override
     @Cacheable(keyGenerator = "DefaultGenerator")
     public ReturnDTO<UserDetailDO> findByPhone(String phone) {
-        log.info("UserDetailService|findByPhone|{}", phone);
+        log.info("---------- UserDetailService|findByPhone|{}", phone);
         UserDetailDO userDetailDO = repository.findUserCacheDOByPhoneEquals(phone);
         return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
@@ -62,7 +62,7 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Cacheable(keyGenerator = "DefaultGenerator")
     @Override
     public Page<UserDetailDO> findAll(@NotNull Pageable pageable) {
-        log.info("UserDetailService|findByPhone|{}", pageable.toString());
+        log.info("---------- UserDetailService|findByPhone|{}", pageable.toString());
         return repository.findAll(pageable);
     }
 
@@ -85,7 +85,7 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Override
     @CachePut(key = "'[' + #result.data.name + ']'")
     public ReturnDTO<UserDetailDO> update(@NotNull UserDetailDO userCacheDTO) {
-        log.info("UserDetailService|update|{}", userCacheDTO.toString());
+        log.info("---------- UserDetailService|update|{}", userCacheDTO.toString());
         UserDetailDO userDetailDO = repository.save(userCacheDTO);
         return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
     }
@@ -94,7 +94,7 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @CacheEvict(key = "'[' + #a0 + ']'")
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<Void> delete(String name) {
-        log.info("UserDetailService|delete|{}", name);
+        log.info("---------- UserDetailService|delete|{}", name);
         repository.deleteUserCacheDOByNameIs(name);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -102,7 +102,7 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Override
     @CacheEvict(allEntries = true)
     public ResponseEntity<Void> deleteAll() {
-        log.info("UserDetailService|deleteAll");
+        log.info("---------- UserDetailService|deleteAll");
         repository.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
     }
