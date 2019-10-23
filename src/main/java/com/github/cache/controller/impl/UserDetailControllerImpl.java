@@ -38,13 +38,13 @@ public class UserDetailControllerImpl implements IUserDetailController {
     @Override
     @GetMapping("/detail/name/{name}")
     public ReturnDTO<UserDetailDO> findByName(@PathVariable String name) {
-        return service.findByName(name);
+        return ReturnDTO.<UserDetailDO>builder().data(service.findByName(name)).build();
     }
 
     @Override
     @GetMapping("/detail/phone/{phone}")
     public ReturnDTO<UserDetailDO> findByPhone(@PathVariable String phone) {
-        return service.findByPhone(phone);
+        return ReturnDTO.<UserDetailDO>builder().data(service.findByPhone(phone)).build();
     }
 
     @Override
@@ -56,13 +56,13 @@ public class UserDetailControllerImpl implements IUserDetailController {
     @Override
     @PostMapping("/detail")
     public ReturnDTO<UserDetailDO> create(@RequestBody UserDetailDO userDetailDO) {
-        return service.create(userDetailDO);
+        return ReturnDTO.<UserDetailDO>builder().data(service.create(userDetailDO)).build();
     }
 
     @Override
     @PutMapping("/detail")
     public ReturnDTO<UserDetailDO> update(@RequestBody UserDetailDO userDetailDO) {
-        return service.update(userDetailDO);
+        return ReturnDTO.<UserDetailDO>builder().data(service.update(userDetailDO)).build();
     }
 
     @Override

@@ -25,7 +25,7 @@ public interface IUserDetailService {
      * @param name 请求的用户名
      * @return UserDetailDO
      */
-    ReturnDTO<UserDetailDO> findByName(String name);
+    UserDetailDO findByName(String name);
 
     /**
      * 根据手机号码查询用户
@@ -33,7 +33,7 @@ public interface IUserDetailService {
      * @param phone 用户手机号码
      * @return UserDetailDO
      */
-    ReturnDTO<UserDetailDO> findByPhone(String phone);
+    UserDetailDO findByPhone(String phone);
 
     /**
      * 获取所有的用户信息
@@ -52,7 +52,7 @@ public interface IUserDetailService {
      * @param userCacheDTO UserDetailDO
      * @return UserDetailDO
      */
-    ReturnDTO<UserDetailDO> create(UserDetailDO userCacheDTO);
+    UserDetailDO create(UserDetailDO userCacheDTO);
 
     /**
      * 更新用户信息
@@ -60,7 +60,7 @@ public interface IUserDetailService {
      * @param userCacheDTO 用户信息
      * @return UserDetailDO
      */
-    ReturnDTO<UserDetailDO> update(UserDetailDO userCacheDTO);
+    UserDetailDO update(UserDetailDO userCacheDTO);
 
     /**
      * -@CacheEvict

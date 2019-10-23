@@ -1,6 +1,5 @@
 package com.github.cache.service.impl;
 
-import com.github.cache.pojo.ReturnDTO;
 import com.github.cache.pojo.UserDetailDO;
 import com.github.cache.repository.IUserDetailRepository;
 import com.github.cache.service.IUserDetailService;
@@ -45,18 +44,17 @@ public class UserDetailServiceImpl implements IUserDetailService {
             cacheManager = "JsonCacheManager"
     )
     @Override
-    public ReturnDTO<UserDetailDO> findByName(String name) {
+    public UserDetailDO findByName(String name) {
         log.info("---------- UserDetailService|findByName|{}", name);
-        UserDetailDO userDetailDO = repository.findByNameEquals(name);
-        return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
+        return repository.findByNameEquals(name);
+
     }
 
     @Override
     @Cacheable(keyGenerator = "DefaultGenerator")
-    public ReturnDTO<UserDetailDO> findByPhone(String phone) {
+    public UserDetailDO findByPhone(String phone) {
         log.info("---------- UserDetailService|findByPhone|{}", phone);
-        UserDetailDO userDetailDO = repository.findUserCacheDOByPhoneEquals(phone);
-        return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
+        return repository.findUserCacheDOByPhoneEquals(phone);
     }
 
     @Cacheable(keyGenerator = "DefaultGenerator")
@@ -68,26 +66,24 @@ public class UserDetailServiceImpl implements IUserDetailService {
 
     @Caching(
             cacheable = {
-                    @Cacheable(key = "'[' + #a0.name + ']'"),
+                    @Cacheable(key = "'[' + #a0.name + ']' "),
             },
             put = {
-                    @CachePut(key = "'[' + #result.data.name + ']'"),
-                    @CachePut(key = "'[' + #result.data.phone + ']'")
+                    @CachePut(key = "'[' + #result.name + ']'"),
+                    @CachePut(key = "'[' + #result.phone + ']'")
             }
     )
     @Override
-    public ReturnDTO<UserDetailDO> create(@NotNull UserDetailDO userCacheDTO) {
+    public UserDetailDO create(@NotNull UserDetailDO userCacheDTO) {
         log.info("UserDetailService|create|{}", userCacheDTO.toString());
-        UserDetailDO userDetailDO = repository.save(userCacheDTO);
-        return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
+        return repository.save(userCacheDTO);
     }
 
     @Override
-    @CachePut(key = "'[' + #result.data.name + ']'")
-    public ReturnDTO<UserDetailDO> update(@NotNull UserDetailDO userCacheDTO) {
+    @CachePut(key = "'[' + #result.name + ']'")
+    public UserDetailDO update(@NotNull UserDetailDO userCacheDTO) {
         log.info("---------- UserDetailService|update|{}", userCacheDTO.toString());
-        UserDetailDO userDetailDO = repository.save(userCacheDTO);
-        return ReturnDTO.<UserDetailDO>builder().data(userDetailDO).build();
+        return repository.save(userCacheDTO);
     }
 
     @Override
