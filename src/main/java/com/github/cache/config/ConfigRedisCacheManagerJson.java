@@ -1,7 +1,7 @@
 package com.github.cache.config;
 
 
-import com.github.cache.pojo.doo.UserDetailDO;
+import com.github.cache.pojo.doo.RoleDetailDO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
@@ -66,7 +66,7 @@ public class ConfigRedisCacheManagerJson {
     private RedisCacheConfiguration createConfiguration(@NotNull CacheProperties cacheProperties) {
         Redis redisProperties = cacheProperties.getRedis();
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-        config = config.serializeValuesWith(SerializationPair.fromSerializer(new Jackson2JsonRedisSerializer<>(UserDetailDO.class)));
+        config = config.serializeValuesWith(SerializationPair.fromSerializer(new Jackson2JsonRedisSerializer<>(RoleDetailDO.class)));
         if (redisProperties.getTimeToLive() != null) {
             config = config.entryTtl(redisProperties.getTimeToLive());
         }

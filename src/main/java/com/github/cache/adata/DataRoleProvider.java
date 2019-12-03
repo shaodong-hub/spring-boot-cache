@@ -1,7 +1,7 @@
 package com.github.cache.adata;
 
-import com.github.cache.pojo.doo.UserDetailDO;
-import com.github.cache.repository.IUserDetailRepository;
+import com.github.cache.pojo.doo.RoleDetailDO;
+import com.github.cache.repository.IRoleDetailRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -21,10 +21,10 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Service
-public class DataProvider {
+public class DataRoleProvider {
 
     @Resource
-    private IUserDetailRepository repository;
+    private IRoleDetailRepository repository;
 
     @Resource
     private RedisTemplate<String, String> redisTemplate;
@@ -39,12 +39,10 @@ public class DataProvider {
         redisTemplate.delete(redisTemplate.keys("*"));
         repository.deleteAll();
         for (int i = 0; i < NUM; i++) {
-            UserDetailDO userDetailDO = UserDetailDO.builder()
-                    .name("name" + i)
-                    .phone(1000 + i + "")
-                    .age(i)
+            RoleDetailDO roleDetailDO = RoleDetailDO.builder()
+                    .name("name:" + i)
                     .build();
-            repository.save(userDetailDO);
+            repository.save(roleDetailDO);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.github.cache.repository;
 
+import com.github.cache.pojo.doo.RoleDetailDO;
 import com.github.cache.pojo.doo.UserDetailDO;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -14,7 +15,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @since 0.0.1
  */
 
-public interface IUserDetailRepository extends PagingAndSortingRepository<UserDetailDO, String> {
+public interface IUserDetailRepository extends PagingAndSortingRepository<UserDetailDO, Long> {
 
 
     /**

@@ -1,5 +1,6 @@
 package com.github.cache.service;
 
+import com.github.cache.pojo.doo.RoleDetailDO;
 import com.github.cache.pojo.doo.UserDetailDO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

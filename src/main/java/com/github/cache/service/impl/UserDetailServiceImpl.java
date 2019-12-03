@@ -31,7 +31,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Service
-@CacheConfig(cacheNames = "redis_cache")
+@CacheConfig(cacheNames = "user_cache")
 public class UserDetailServiceImpl implements IUserDetailService {
 
     @Resource

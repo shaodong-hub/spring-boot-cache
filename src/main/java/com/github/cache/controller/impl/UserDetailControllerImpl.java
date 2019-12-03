@@ -1,8 +1,8 @@
 package com.github.cache.controller.impl;
 
 import com.github.cache.controller.IUserDetailController;
-import com.github.cache.pojo.dto.ReturnDTO;
 import com.github.cache.pojo.doo.UserDetailDO;
+import com.github.cache.pojo.dto.ReturnDTO;
 import com.github.cache.service.IUserDetailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -71,6 +71,7 @@ public class UserDetailControllerImpl implements IUserDetailController {
     public ResponseEntity<Void> delete(@PathVariable String name) {
         return service.delete(name);
     }
+
 
     @Override
     @DeleteMapping("/detail")
