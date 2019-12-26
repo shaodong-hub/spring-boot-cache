@@ -29,10 +29,6 @@ public class RoleDetailControllerImpl implements IRoleDetailController {
     @Resource
     private IRoleDetailService service;
 
-    /**
-     * @param id
-     * @return
-     */
     @GetMapping("/role/{id}")
     @Override
     public RoleDetailDO getRoleDetailDO(@PathVariable Long id) {
@@ -40,8 +36,8 @@ public class RoleDetailControllerImpl implements IRoleDetailController {
     }
 
     /**
-     * @param map
-     * @return
+     * @param map 请求的数据
+     * @return Map
      */
     @PostMapping("/map")
     public Map<String, String> getMap(@RequestBody Map<String, String> map) {

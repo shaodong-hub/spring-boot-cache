@@ -2,7 +2,6 @@ package com.github.cache.controller;
 
 import com.github.cache.pojo.doo.UserDetailDO;
 import com.github.cache.pojo.dto.ReturnDTO;
-import com.github.cache.pojo.doo.RoleDetailDO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -64,6 +63,8 @@ public interface IUserDetailController {
     ReturnDTO<UserDetailDO> update(@RequestBody UserDetailDO userDetailDO);
 
     /**
+     * 删除单个用户
+     *
      * @param name 根据用户名删除用户
      * @return ResponseEntity
      */
