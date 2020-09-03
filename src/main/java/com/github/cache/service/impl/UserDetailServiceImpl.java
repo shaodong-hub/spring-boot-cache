@@ -31,14 +31,14 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Service
-@CacheConfig(cacheNames = "redis_cache")
+@CacheConfig(cacheNames = "user_cache", cacheManager = "JsonCacheManager", keyGenerator = "RedisGenerator")
 public class UserDetailServiceImpl implements IUserDetailService {
 
     @Resource
     private IUserDetailRepository repository;
 
     @Cacheable(
-            keyGenerator = "DefaultGenerator",
+            keyGenerator = "RedisGenerator",
             condition = "#name !='name10'",
             unless = "#name.length() <= 4",
             cacheManager = "JsonCacheManager"
@@ -51,13 +51,13 @@ public class UserDetailServiceImpl implements IUserDetailService {
     }
 
     @Override
-    @Cacheable(keyGenerator = "DefaultGenerator")
+    @Cacheable(keyGenerator = "RedisGenerator")
     public UserDetailDO findByPhone(String phone) {
         log.info("---------- UserDetailService|findByPhone|{}", phone);
         return repository.findUserCacheDOByPhoneEquals(phone);
     }
 
-    @Cacheable(keyGenerator = "DefaultGenerator")
+    @Cacheable(keyGenerator = "RedisGenerator")
     @Override
     public Page<UserDetailDO> findAll(@NotNull Pageable pageable) {
         log.info("---------- UserDetailService|findByPhone|{}", pageable.toString());
